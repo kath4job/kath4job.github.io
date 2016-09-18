@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>web下载文件 | 凯西</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。
+为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。
+平时浏览器下载，是通过设置http返回头 Content-Type 和 Content-Disposition 的，如下载一个excel文件，响应的返回头如下：
+Content-Type: a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web下载文件">
+<meta property="og:url" content="https://kath4job.github.io/2016/09/18/web下载文件/index.html">
+<meta property="og:site_name" content="凯西">
+<meta property="og:description" content="web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。
+为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。
+平时浏览器下载，是通过设置http返回头 Content-Type 和 Content-Disposition 的，如下载一个excel文件，响应的返回头如下：
+Content-Type: a">
+<meta property="og:updated_time" content="2016-09-18T11:26:20.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web下载文件">
+<meta name="twitter:description" content="web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。
+为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。
+平时浏览器下载，是通过设置http返回头 Content-Type 和 Content-Disposition 的，如下载一个excel文件，响应的返回头如下：
+Content-Type: a">
+  
+    <link rel="alternative" href="/atom.xml" title="凯西" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="//favicon.png">
+  
+  <script src="/style.js"></script>
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/avatar.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">凯西</a></h1>
+		</hgroup>
+
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/">主页</a></li>
+	        
+				<li><a href="/archives">所有文章</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="0" href="javascript:void(0)">标签</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="1" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a class="js-smart-menu" data-idx="2" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="https://github.com/kath4job" title="github">github</a>
+		        
+					<a class="mail" target="_blank" href="mailto:kath4job@gmail.com?subject=博客交流：" title="mail">mail</a>
+		        
+					<a class="linkedin" target="_blank" href="http://www.linkedin.com/in/远-王-1207a9b0?trk=nav_responsive_tab_profile" title="linkedin">linkedin</a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-list"></i></div>
+  		<h1 class="header-author js-mobile-header hide">凯西</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				
+					<img src="/avatar.jpg" class="js-avatar">
+				
+			</div>
+			<hgroup>
+			  <h1 class="header-author">凯西</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/kath4job" title="github">github</a>
+			        
+						<a class="mail" target="_blank" href="mailto:kath4job@gmail.com?subject=博客交流：" title="mail">mail</a>
+			        
+						<a class="linkedin" target="_blank" href="http://www.linkedin.com/in/远-王-1207a9b0?trk=nav_responsive_tab_profile" title="linkedin">linkedin</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap">
+        <article id="post-web下载文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      web下载文件
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。</p>
+<p>为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。</p>
+<p>平时浏览器下载，是通过设置http返回头 <code>Content-Type</code> 和 <code>Content-Disposition</code> 的，如下载一个excel文件，响应的返回头如下：</p>
+<pre><code>Content-Type: application/octet-stream
+Content-Disposition: attachment; filename=&quot;download+excel.xlsx&quot;;  filename*=utf-8&apos;&apos;download+excel.xlsx
+</code></pre><p>Content-Type：用来告诉浏览器当前的响应体是个什么类型的数据。当其为 ‘application/octet-stream’ 的时候，就说明 body 里面是二进制数据，常见的值还有 <code>text/html</code>、<code>image/jpeg</code>、<code>image/png</code>等。</p>
+<p>而控制浏览器下载行为的，主要是 <a href="https://tools.ietf.org/html/rfc6266" target="_blank" rel="external">Content-Disposition</a>头，根据rfc文档得知，这个头并没有在http 1.1的标准中实现，但是各大浏览器厂商已广泛支持这个头部，其值主要由两部分组成：</p>
+<pre><code>disposition-type = &quot;inline&quot; | &quot;attachment&quot; | disp-ext-type
+                     ; case-insensitive
+filename-parm   = &quot;filename&quot; &quot;=&quot; value
+                | &quot;filename*&quot; &quot;=&quot; ext-value
+</code></pre><p>disposition-type的值，常用的有 <code>inline</code> 和 <code>attachment</code>。文章开始说的浏览器是下载文件还是打开文件，就是根据这个头进行判断的，值为inline的话，浏览器会默认直接打开文件，而为attachment时，浏览器才会下载文件。</p>
+<p>filename-param的值，用来控制下载后的文件名，这个值需要encode后才能进行返回，否则下载的文件名会乱码或者错乱。上面示例中的 <code>filename*=utf-8&#39;&#39;download+excel.xlsx</code> 该部分，utf-8部分来告诉浏览器文件名的编码，因为filename*不是所有的浏览器都支持，所以返回头需要同时返回filename字段。</p>
+<p>经过测试，浏览器支持通过设置disposition-type的值为inline进行预览的文件类型为txt、html、htm、xhtml、log、jpg、jpeg、bmp、png、gif。</p>
+<p>所以修复一开所说的bug，只需将svg文件类型的头设置成attachment进行下载即可，因为浏览器不支持该类型图片的预览打开。</p>
+<hr>
+<p><strong>转载请注明出处，多谢！</strong></p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/09/18/web下载文件/" class="archive-article-date">
+  	<time datetime="2016-09-18T07:36:07.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-09-18</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/http-header/">http-header</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web下载/">web下载</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/09/17/jquery插件介绍/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">jquery插件介绍</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="web下载文件" data-title="web下载文件" data-url="https://kath4job.github.io/2016/09/18/web下载文件/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"kath4job"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+
+      </div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 凯西
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    <script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/"
+	}
+</script>
+
+<script src="/./main.js"></script>
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+    
+<div class="tools-col">
+  <ul class="btn-wrap">
+    
+    
+      <li data-hook="tools-section-tag"><span class="text">标签</span><i class="icon-price-tags"></i></li>
+    
+    
+      <li data-hook="tools-section-friends"><span class="text">友链</span><i class="icon-link"></i></li>
+    
+    
+      <li data-hook="tools-section-me"><span class="text">我</span><i class="icon-smile"></i></li>
+    
+  </ul>
+  <div class="tools-wrap">
+    
+
+    
+    	<section class="tools-section tools-section-tag">
+    			<div class="widget tagcloud" id="js-tagcloud">
+    				<a href="/tags/http-header/" style="font-size: 10px;">http-header</a> <a href="/tags/jquery/" style="font-size: 10px;">jquery</a> <a href="/tags/jquery-plugin/" style="font-size: 10px;">jquery-plugin</a> <a href="/tags/web下载/" style="font-size: 10px;">web下载</a>
+    			</div>
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-friends">
+  		
+  			<div class="friends-wrap" id="js-friends">
+  			
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://underscorejs.org/">underscore</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://backbonejs.org/">backbone</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://facebook.github.io/react/">reactjs</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="http://webpack.github.io/docs/">webpack</a>
+  	        
+  	          <a target="_blank" class="main-nav-link switch-friends-link" href="https://nodejs.org/en/">nodejs</a>
+  	        
+  	        </div>
+  		
+    	</section>
+    
+
+    
+    	<section class="tools-section tools-section-me">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">前端狗&lt;br&gt;&lt;br&gt;就职于腾讯&lt;br&gt;&lt;br&gt;咸宁 湖北</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+  </div>
+</body>
+</html>
