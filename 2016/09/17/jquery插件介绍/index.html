@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="凯西">
 <meta property="og:description" content="【译】https://www.sitepoint.com/developing-jquery-plugins/?utm_source=javascriptweekly&amp;amp;utm_medium=email
 或许你已经使用过”sliders”、”galleries”、”fomrs”等这些交互组件了。虽然你在一个又一个基础需求上使用这些组件，但或许开发jQuery插件满足自己特殊功能需求从而加快开">
-<meta property="og:updated_time" content="2016-09-18T11:29:51.644Z">
+<meta property="og:updated_time" content="2016-09-23T13:05:29.729Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jquery插件介绍">
 <meta name="twitter:description" content="【译】https://www.sitepoint.com/developing-jquery-plugins/?utm_source=javascriptweekly&amp;amp;utm_medium=email
@@ -162,102 +162,43 @@
 <p>插件的另一个优势是开发者可以定义一些选项在使用的时候可以自定义插件功能。你或许会定义多个选项来控制插件的表现，也或许只定义两个选项来使使用者的使用起来更方便，对于插件来说，这取决于你对插件的要求。</p>
 <h2 id="创建jQuery插件"><a href="#创建jQuery插件" class="headerlink" title="创建jQuery插件"></a>创建jQuery插件</h2><p>jQuery插件通过注册一个方法进行调用触发（ 例如当你要获取元素的width和height时会调用内置的 <code>.width()</code>  和 <code>.height()</code> 方法 ）。</p>
 <p>我们需要将插件方法添加到jQuery的 <code>$.fn</code> 对象上，从而可以通过全局的 <code>$</code> 对象进行调用。这种注册方式也使得方法可以通过jQuery对象和选择器对象进行调用。</p>
-<pre><code>//注册方法
-$.fn.fancytoggle = function(){
-// ...
-};
-</code></pre><p>到这里为止，你获得了一个方法可以通 <code>$</code> 对象进行调用。虽然方法什么都不做，但是你可以在任何时候进行调用了，例如通过选择器对象：</p>
-<pre><code>//调用方法    
-$(&quot;.my_element&quot;).fancytoggle()
-</code></pre><p>你可以通过 <code>$.fn</code> 对象注册任意的方法，但一个好的规则是尽量是避免注册多个方法，除非你的插件确实需要完成多个完全不同的任务。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//注册方法</span></div><div class="line">$.fn.fancytoggle = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line"><span class="comment">// ...</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>到这里为止，你获得了一个方法可以通 <code>$</code> 对象进行调用。虽然方法什么都不做，但是你可以在任何时候进行调用了，例如通过选择器对象：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//调用方法    </span></div><div class="line">$(<span class="string">".my_element"</span>).fancytoggle()</div></pre></td></tr></table></figure>
+<p>你可以通过 <code>$.fn</code> 对象注册任意的方法，但一个好的规则是尽量是避免注册多个方法，除非你的插件确实需要完成多个完全不同的任务。</p>
 <h3 id="集合和循环"><a href="#集合和循环" class="headerlink" title="集合和循环"></a>集合和循环</h3><p>一个重要的点需要了解的是插件方法可能被单个元素或者多个元素调用。举个例子，当插件方法  <code>fancytoggle()</code> 应用于多个元素时，在方法里我们会获得一个集合进行处理。</p>
 <p>处理多个元素我们只需要通过jQuery方法 <code>$.each</code> 遍历元素集合即可：</p>
-<pre><code>$.fn.fancytoggle = function(options) {
-// `this` refers to the jQuery elements your plugin is called on
-this.each(function(index, value){
-    // the rest of your plugins functionality here
-});
-return this;
-};
-</code></pre><p>我们通过遍历元素集合获得每一个元素，然后针对每个元素做计算、绑定事件或者其它的操作，唯一需要确保的是在 <code>$.each</code> 方法里面做的操作针对的是正确的元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$.fn.fancytoggle = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</div><div class="line"><span class="comment">// `this` refers to the jQuery elements your plugin is called on</span></div><div class="line"><span class="keyword">this</span>.each(<span class="function"><span class="keyword">function</span>(<span class="params">index, value</span>)</span>&#123;</div><div class="line">    <span class="comment">// the rest of your plugins functionality here</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>我们通过遍历元素集合获得每一个元素，然后针对每个元素做计算、绑定事件或者其它的操作，唯一需要确保的是在 <code>$.each</code> 方法里面做的操作针对的是正确的元素。</p>
 <h3 id="返回对象-链式调用"><a href="#返回对象-链式调用" class="headerlink" title="返回对象/链式调用"></a>返回对象/链式调用</h3><p>绝大多数时候，插件方法都直接被对象或者选择器调用，这就决定了插件方法依附在了这个对象上。</p>
 <p>jQuery一个重要的概念就是 <code>链式调用</code> ，这样你可以通过一个对象不停的调用方法，他们会按照调用顺序执行下去：</p>
-<pre><code>//通过jQuery选择器进行链式调用
-$(&quot;.my-element&quot;)
-    .addClass(&quot;active&quot;)
-        .slideToggle(&quot;fast&quot;);
-</code></pre><p>上面的例子先选择了一个元素，添加 <code>active</code> class然后使用slides动画进行展开或者收起，每一次调用都返回了一个对象用于下一次调用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//通过jQuery选择器进行链式调用</span></div><div class="line">$(<span class="string">".my-element"</span>)</div><div class="line">    .addClass(<span class="string">"active"</span>)</div><div class="line">        .slideToggle(<span class="string">"fast"</span>);</div></pre></td></tr></table></figure>
+<p>上面的例子先选择了一个元素，添加 <code>active</code> class然后使用slides动画进行展开或者收起，每一次调用都返回了一个对象用于下一次调用。</p>
 <p>使你的插件这样工作需要在你的插件方法里面返回调用插件的对象，这在技术上也并不困难，像下面这样就可以了： </p>
-<pre><code>// defining our plugin function and returning it
-$.fn.fancytoggle = function() {
-// ...
-    return this;
-};
-</code></pre><h3 id="选项和配置"><a href="#选项和配置" class="headerlink" title="选项和配置"></a>选项和配置</h3><p>插件可以通过一系列的选项来配置不同的表现，这些配置可以通过一个javacript对象传入插件方法：</p>
-<pre><code>// 调用插件 (定制选项)
-$(&quot;.my-element&quot;).fancytoggle({
-    openSpeed: 300,
-    closeSpeed: 600,
-});
-</code></pre><p>可以通过选项配置插件的时候，我们需要给与插件一些默认的选项配置来确保插件基本的功能，我们可以通过使用 <code>$.extend</code> 方法来合并我们的默认选项和调用插件传入的选项：</p>
-<pre><code>$.fn.fancytoggle = function(options) {
-// 默认选项 
-options = $.extend({
-    openSpeed: 400,
-    closeSpeed: 400,
-    easing: &quot;linear&quot;,
-// 配置选项
-}, options);
-
-    // ...
-
-    return this;
-}
-</code></pre><p>你可以给你的插件定义任意多的选项， <code>$.extend</code> 都会将这些选项和默认的合并成一个对象，但你最好只定义一些需要的选项来更好的控制插件的表现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// defining our plugin function and returning it</span></div><div class="line">$.fn.fancytoggle = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line"><span class="comment">// ...</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="选项和配置"><a href="#选项和配置" class="headerlink" title="选项和配置"></a>选项和配置</h3><p>插件可以通过一系列的选项来配置不同的表现，这些配置可以通过一个javacript对象传入插件方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 调用插件 (定制选项)</span></div><div class="line">$(<span class="string">".my-element"</span>).fancytoggle(&#123;</div><div class="line">    openSpeed: <span class="number">300</span>,</div><div class="line">    closeSpeed: <span class="number">600</span>,</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>可以通过选项配置插件的时候，我们需要给与插件一些默认的选项配置来确保插件基本的功能，我们可以通过使用 <code>$.extend</code> 方法来合并我们的默认选项和调用插件传入的选项：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$.fn.fancytoggle = <span class="function"><span class="keyword">function</span>(<span class="params">options</span>) </span>&#123;</div><div class="line"><span class="comment">// 默认选项 </span></div><div class="line">options = $.extend(&#123;</div><div class="line">    openSpeed: <span class="number">400</span>,</div><div class="line">    closeSpeed: <span class="number">400</span>,</div><div class="line">    easing: <span class="string">"linear"</span>,</div><div class="line"><span class="comment">// 配置选项</span></div><div class="line">&#125;, options);</div><div class="line"></div><div class="line">    <span class="comment">// ...</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>你可以给你的插件定义任意多的选项， <code>$.extend</code> 都会将这些选项和默认的合并成一个对象，但你最好只定义一些需要的选项来更好的控制插件的表现。</p>
 <p>对于插件，我们可以通过选项来配置插件如何工作，例如，对与fancytoogle插件，我们希望使用者可以配置展开的元素，尽管我们在默认选项里配置了只会展开一个元素（展开时关闭其它展开的元素），我们在插件方法里面还是要根据使用者传进来的配置来决定是否要关闭其它展开的元素：</p>
-<pre><code>options = $.extend({
-    singleItemOpen: false,
-}, options);
-
-if (options.singleItemOpen === true) {
-    var $activePanel = $item.siblings(&quot;.active&quot;);
-    animate($activePanel, &quot;data-min-height&quot;, &quot;data-close-speed&quot;);
-}
-</code></pre><h3 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h3><p>事件监听是指在插件生命周期中的某一特殊时候被调用的方法，这种回调使使用者（或者你）能够在插件的关键部位定制特殊功能。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">options = $.extend(&#123;</div><div class="line">    singleItemOpen: <span class="literal">false</span>,</div><div class="line">&#125;, options);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (options.singleItemOpen === <span class="literal">true</span>) &#123;</div><div class="line">    <span class="keyword">var</span> $activePanel = $item.siblings(<span class="string">".active"</span>);</div><div class="line">    animate($activePanel, <span class="string">"data-min-height"</span>, <span class="string">"data-close-speed"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="事件监听"><a href="#事件监听" class="headerlink" title="事件监听"></a>事件监听</h3><p>事件监听是指在插件生命周期中的某一特殊时候被调用的方法，这种回调使使用者（或者你）能够在插件的关键部位定制特殊功能。</p>
 <p>开发者们都会着重考虑在插件的什么部位插入这些回调函数，例如当点击展开元素或者关闭模态框的时候。</p>
 <p>你可以把这些事件监听函数定义在你的默认选项配置对象里，并设置成空函数：</p>
-<pre><code>options = $.extend({
-    // ...,
-    onItemClick: function(){},
-    onItemOpen: function(){},
-    onItemClose: function(){}
-}, options);
-</code></pre><p>jQuery提供了 <code>$.noop</code> 来替代这些空函数，它们有相同的功能但可以避免重复定义多个这种匿名函数：</p>
-<pre><code>options = $.extend({
-    onItemClick: $.noop,
-    onItemOpen: $.noop,
-    onItemClose: $.noop
-}, options);
-</code></pre><p>配置好这些设置，当插件回调这些事件监听方法时，就可以在回调函数里构建自己的功能了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">options = $.extend(&#123;</div><div class="line">    <span class="comment">// ...,</span></div><div class="line">    onItemClick: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">    onItemOpen: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</div><div class="line">    onItemClose: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">&#125;, options);</div></pre></td></tr></table></figure>
+<p>jQuery提供了 <code>$.noop</code> 来替代这些空函数，它们有相同的功能但可以避免重复定义多个这种匿名函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">options = $.extend(&#123;</div><div class="line">    onItemClick: $.noop,</div><div class="line">    onItemOpen: $.noop,</div><div class="line">    onItemClose: $.noop</div><div class="line">&#125;, options);</div></pre></td></tr></table></figure>
+<p>配置好这些设置，当插件回调这些事件监听方法时，就可以在回调函数里构建自己的功能了。</p>
 <p>这些事件监听函数在触发的时候会通过options对象调用，例如在我们插件里面配置了onItemClick回调，我们希望在点击每一个元素的时候触发。我们可以使用 <code>.call</code> 方法触发这些事件监听函数。</p>
 <p>让我们看看是怎样的：</p>
-<pre><code>// 点击任何一个元素时调用
-function toggle($item, event){
-    //触发事件监听函数
-    options.onItemClick.call(null, $item, event); 
-}); 
-</code></pre><p>当我们点击展开或收起元素时，就会触发事件监听函数，并传入三个参数.第一个参数是 <code>null</code> : 传入null是为了在接下来的监听函数里继续使用this对象，而不必担心this的值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 点击任何一个元素时调用</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">toggle</span>(<span class="params">$item, event</span>)</span>&#123;</div><div class="line">    <span class="comment">//触发事件监听函数</span></div><div class="line">    options.onItemClick.call(<span class="literal">null</span>, $item, event); </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>当我们点击展开或收起元素时，就会触发事件监听函数，并传入三个参数.第一个参数是 <code>null</code> : 传入null是为了在接下来的监听函数里继续使用this对象，而不必担心this的值。</p>
 <p>第二个参数是 <code>$item</code> （要切换的元素）：这个很重要，事件监听函数通过这个参数获得当前切换的元素。</p>
 <p>第三个参数是 <code>event</code> （事件本身）。</p>
 <p>事件监听函数会获取 <code>$item</code> 和 <code>event</code> 对象，然后自定义函数的功能，例如，当我们想在点击切换元素时希望移除当前点击的元素：</p>
-<pre><code>$(&quot;.my-element&quot;).fancytoggle({
-    //移除当前元素
-    onItemClick: function($item, event){
-        $item.remove(); 
-        console.log(&quot;Removed this item!&quot;); 
-    }
-});
-</code></pre><p>这也是事件是那么魔幻的原因之一，他可以使使用者在使用插件的过程中，在一些关键时刻扩展或者修改插件来适配自己的需求。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$(<span class="string">".my-element"</span>).fancytoggle(&#123;</div><div class="line">    <span class="comment">//移除当前元素</span></div><div class="line">    onItemClick: <span class="function"><span class="keyword">function</span>(<span class="params">$item, event</span>)</span>&#123;</div><div class="line">        $item.remove(); </div><div class="line">        <span class="built_in">console</span>.log(<span class="string">"Removed this item!"</span>); </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这也是事件是那么魔幻的原因之一，他可以使使用者在使用插件的过程中，在一些关键时刻扩展或者修改插件来适配自己的需求。</p>
 <h3 id="插件健壮性"><a href="#插件健壮性" class="headerlink" title="插件健壮性"></a>插件健壮性</h3><p>一种情况需要考虑到，当浏览器js不可用时，我们的插件也将失去效果，同时可能导致页面上没有任何的html解构（页面由插件渲染出来时）。</p>
 <p>对于我们的例子，我们在页面上创建了一个可切换的区域，包括title和body两块(点击title，然后切换body部分)。这样，如果js不可用，插件不能工作的话，页面还可以正常显示。</p>
 <p>这种情况，我们需要加强考虑。</p>
