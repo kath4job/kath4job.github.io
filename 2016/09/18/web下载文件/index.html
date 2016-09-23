@@ -9,7 +9,7 @@
   <meta name="description" content="web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。
 为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。
 平时浏览器下载，是通过设置http返回头 Content-Type 和 Content-Disposition 的，如下载一个excel文件，响应的返回头如下：
-Content-Type: a">
+12Content-Type:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="web下载文件">
 <meta property="og:url" content="https://kath4job.github.io/2016/09/18/web下载文件/index.html">
@@ -17,14 +17,14 @@ Content-Type: a">
 <meta property="og:description" content="web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。
 为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。
 平时浏览器下载，是通过设置http返回头 Content-Type 和 Content-Disposition 的，如下载一个excel文件，响应的返回头如下：
-Content-Type: a">
-<meta property="og:updated_time" content="2016-09-18T11:26:20.112Z">
+12Content-Type:">
+<meta property="og:updated_time" content="2016-09-23T13:09:37.757Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web下载文件">
 <meta name="twitter:description" content="web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。
 为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。
 平时浏览器下载，是通过设置http返回头 Content-Type 和 Content-Disposition 的，如下载一个excel文件，响应的返回头如下：
-Content-Type: a">
+12Content-Type:">
   
     <link rel="alternative" href="/atom.xml" title="凯西" type="application/atom+xml">
   
@@ -160,15 +160,11 @@ Content-Type: a">
         <p>web下载文件的时候，有的被浏览器打开预览了，而有的是下载下来的，最近遇到这样一个问题，svg的文件，浏览器预览未成功，用户又无法进行下载。</p>
 <p>为了弄清这个问题，就把web下载相关的知识了解了一下，做个记录。</p>
 <p>平时浏览器下载，是通过设置http返回头 <code>Content-Type</code> 和 <code>Content-Disposition</code> 的，如下载一个excel文件，响应的返回头如下：</p>
-<pre><code>Content-Type: application/octet-stream
-Content-Disposition: attachment; filename=&quot;download+excel.xlsx&quot;;  filename*=utf-8&apos;&apos;download+excel.xlsx
-</code></pre><p>Content-Type：用来告诉浏览器当前的响应体是个什么类型的数据。当其为 ‘application/octet-stream’ 的时候，就说明 body 里面是二进制数据，常见的值还有 <code>text/html</code>、<code>image/jpeg</code>、<code>image/png</code>等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Content-Type: application/octet-stream</div><div class="line">Content-Disposition: attachment; filename=<span class="string">"download+excel.xlsx"</span>;  filename*=utf<span class="number">-8</span><span class="string">''</span>download+excel.xlsx</div></pre></td></tr></table></figure>
+<p>Content-Type：用来告诉浏览器当前的响应体是个什么类型的数据。当其为 ‘application/octet-stream’ 的时候，就说明 body 里面是二进制数据，常见的值还有 <code>text/html</code>、<code>image/jpeg</code>、<code>image/png</code>等。</p>
 <p>而控制浏览器下载行为的，主要是 <a href="https://tools.ietf.org/html/rfc6266" target="_blank" rel="external">Content-Disposition</a>头，根据rfc文档得知，这个头并没有在http 1.1的标准中实现，但是各大浏览器厂商已广泛支持这个头部，其值主要由两部分组成：</p>
-<pre><code>disposition-type = &quot;inline&quot; | &quot;attachment&quot; | disp-ext-type
-                     ; case-insensitive
-filename-parm   = &quot;filename&quot; &quot;=&quot; value
-                | &quot;filename*&quot; &quot;=&quot; ext-value
-</code></pre><p>disposition-type的值，常用的有 <code>inline</code> 和 <code>attachment</code>。文章开始说的浏览器是下载文件还是打开文件，就是根据这个头进行判断的，值为inline的话，浏览器会默认直接打开文件，而为attachment时，浏览器才会下载文件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">disposition-type = <span class="string">"inline"</span> | <span class="string">"attachment"</span> | disp-ext-type</div><div class="line">                     ; <span class="keyword">case</span>-insensitive</div><div class="line">filename-parm   = <span class="string">"filename"</span> <span class="string">"="</span> value</div><div class="line">                | <span class="string">"filename*"</span> <span class="string">"="</span> ext-value</div></pre></td></tr></table></figure>
+<p>disposition-type的值，常用的有 <code>inline</code> 和 <code>attachment</code>。文章开始说的浏览器是下载文件还是打开文件，就是根据这个头进行判断的，值为inline的话，浏览器会默认直接打开文件，而为attachment时，浏览器才会下载文件。</p>
 <p>filename-param的值，用来控制下载后的文件名，这个值需要encode后才能进行返回，否则下载的文件名会乱码或者错乱。上面示例中的 <code>filename*=utf-8&#39;&#39;download+excel.xlsx</code> 该部分，utf-8部分来告诉浏览器文件名的编码，因为filename*不是所有的浏览器都支持，所以返回头需要同时返回filename字段。</p>
 <p>经过测试，浏览器支持通过设置disposition-type的值为inline进行预览的文件类型为txt、html、htm、xhtml、log、jpg、jpeg、bmp、png、gif。</p>
 <p>所以修复一开所说的bug，只需将svg文件类型的头设置成attachment进行下载即可，因为浏览器不支持该类型图片的预览打开。</p>
